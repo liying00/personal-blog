@@ -170,7 +170,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-01-31 21:09:39 / Modified: 20:52:25" itemprop="dateCreated datePublished" datetime="2021-01-31T21:09:39+08:00">2021-01-31</time>
+              <time title="Created: 2021-01-31 21:09:39 / Modified: 20:56:39" itemprop="dateCreated datePublished" datetime="2021-01-31T21:09:39+08:00">2021-01-31</time>
             </span>
 
           
@@ -184,8 +184,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>####组件生命周期</p>
-<p>一个组件类由extends Component 创建，并且提供一个render方法以及其他可选的生命周期函数、组件相关事件定义</p>
+          <h4 id="组件生命周期"><a href="#组件生命周期" class="headerlink" title="组件生命周期"></a>组件生命周期</h4><p>一个组件类由extends Component 创建，并且提供一个render方法以及其他可选的生命周期函数、组件相关事件定义</p>
 <pre>getInitialState</pre>
 <p>初始化 this.state的值，只在组件装载之前调用一次。<br>Es6： 构造函数中 (construcor)进行初始化</p>
 <pre>getDefaultProps</pre>
@@ -383,21 +382,20 @@ import configureStore from './store';
 
 // __INITIAL_STATE__来自服务器端渲染
 </pre>
-<pre>
+<code>
 const initialState = window.__INITIAL_STATE__;
 const store = configureStore(initialState);
-const Root = (props) => {
+const Root = (props) => &#123;
   return (
-      <Provider store={store}>
-        <Router history={createBrowserHistory()}>
-          {routes}
-        </Router>
-      </Provider>
+ <pre>     <Provider store=&#123;store&#125;></pre>
+   <pre>     <Router history=&#123;createBrowserHistory()&#125;></pre>
+   <pre>       &#123;routes&#125;</pre>
+   <pre>     </Router></pre>
+   <pre>   </Provider></pre>
   );
-}
+&#125;
 
-render(<Root />, document.getElementById('root'));</pre>
-
+<p>render(<Root />, document.getElementById(‘root’));</code></p>
 <h5 id="到此-客户端部分结束"><a href="#到此-客户端部分结束" class="headerlink" title="到此 客户端部分结束"></a>到此 客户端部分结束</h5><h4 id="Server-Rendering"><a href="#Server-Rendering" class="headerlink" title="Server Rendering"></a>Server Rendering</h4><p>获取数据调用action,routes在服务端处理参考 react-router server rendering ，在服务器端用一个match方法将拿到的request url 匹配到我们之前定义的routes，解析成和客户端一致的props对象传递给组件。</p>
 <p>服务器端渲染部分可以直接通过共用客户端 store.dispatch(action) 来统一获取 Store 数据。另外注意 renderFullPage 生成的页面 HTML 在 React 组件 mount 的部分(<div id="root">)，前后端的 HTML 结构应该是一致的。然后要把 store 的状态树写入一个全局变量（__INITIAL_STATE__），这样客户端初始化 render 的时候能够校验服务器生成的 HTML 结构，并且同步到初始化状态，然后整个页面被客户端接管。</p>
 <p>页面内链接跳转处理<br>react-router 提供了一个 <Link> 组件用来替代 <a> 标签，它负责管理浏览器 history，从而不是每次点击链接都去请求服务器，然后可以通过绑定 onClick 事件来作其他处理。</p>
