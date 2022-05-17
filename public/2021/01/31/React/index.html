@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="组件生命周期一个组件类由extends Component 创建，并且提供一个render方法以及其他可选的生命周期函数、组件相关事件定义 getInitialState 初始化 this.state的值，只在组件装载之前调用一次。Es6： 构造函数中 (construcor)进行初始化 getDefaultProps 组件创建时调用一次并缓存返回的对象（在初始化之前就调用）Es6：直接定义def">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React">
+<meta property="og:url" content="http://example.com/2021/01/31/React/index.html">
+<meta property="og:site_name" content="Li Ying&#39;s Blog">
+<meta property="og:description" content="组件生命周期一个组件类由extends Component 创建，并且提供一个render方法以及其他可选的生命周期函数、组件相关事件定义 getInitialState 初始化 this.state的值，只在组件装载之前调用一次。Es6： 构造函数中 (construcor)进行初始化 getDefaultProps 组件创建时调用一次并缓存返回的对象（在初始化之前就调用）Es6：直接定义def">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-31T13:09:39.000Z">
+<meta property="article:modified_time" content="2021-01-31T12:56:40.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/01/31/React/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>React | Li Ying's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Li Ying's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/31/React/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Li Ying's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-31 21:09:39 / Modified: 20:56:40" itemprop="dateCreated datePublished" datetime="2021-01-31T21:09:39+08:00">2021-01-31</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="组件生命周期"><a href="#组件生命周期" class="headerlink" title="组件生命周期"></a>组件生命周期</h4><p>一个组件类由extends Component 创建，并且提供一个render方法以及其他可选的生命周期函数、组件相关事件定义</p>
+<pre>getInitialState</pre>
+<p>初始化 this.state的值，只在组件装载之前调用一次。<br>Es6： 构造函数中 (construcor)进行初始化</p>
+<pre>getDefaultProps</pre>
+<p>组件创建时调用一次并缓存返回的对象（在初始化之前就调用）<br>Es6：直接定义defaultProps这个类属性来替代，<br>         Counter.defaultProps = { initialCount: 0 };</p>
+<pre>Render</pre>
+<p>组装生成这个组件的HTML结构，也可以返回null或false</p>
+<h4 id="生命周期函数"><a href="#生命周期函数" class="headerlink" title="生命周期函数"></a>生命周期函数</h4><h5 id="装载组件触发"><a href="#装载组件触发" class="headerlink" title="装载组件触发"></a>装载组件触发</h5><pre>componentWillMount </pre>
+<p>在装载之前调用一次，在render之前调用，可以再这里调用setState改变状态，并且不会导致额外调用一次 render</p>
+<pre>componentDidMount</pre>
+<p>在装载完成以后调用一次，在render之后调用，通过ReactDOM.findDOMNode(this)获取组件DOM节点</p>
+<h5 id="更新组件触发"><a href="#更新组件触发" class="headerlink" title="更新组件触发"></a>更新组件触发</h5><p>这些不会在首次render调用</p>
+<pre>componentWillReceiveProps
+shouldComponentUpdate
+componentWillUpdate
+componentDidUpdate</pre>
+
+<h5 id="卸载组件触发"><a href="#卸载组件触发" class="headerlink" title="卸载组件触发"></a>卸载组件触发</h5><pre>componentWillUnmount</pre>
+
+<h4 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h4><h5 id="绑定事件"><a href="#绑定事件" class="headerlink" title="绑定事件"></a>绑定事件</h5><pre>this.handleClick.bind(this)</pre>
+<p>要显式调用bind(this)将事件函数上下文绑定在组件实例上，尽量使用显式容易理解的js代码</p>
+<h5 id="合成事件"><a href="#合成事件" class="headerlink" title="合成事件"></a>合成事件</h5><p>消除了IE与W3C标准之前的兼容问题<br>合成事件已时间委托方式绑定在组件最上层 ，并且在组件卸载时候自动销毁绑定事件。</p>
+<h5 id="原生事件"><a href="#原生事件" class="headerlink" title="原生事件"></a>原生事件</h5><p>比如在componentDidMount方法里面通过addEventListener绑定的事件就是浏览器原生事件</p>
+<h5 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h5><pre>this.handleClick.bind>this.handleClick.bind ( this, 'extra param')</pre>
+
+
+<h5 id="DOM操作"><a href="#DOM操作" class="headerlink" title="DOM操作"></a>DOM操作</h5><p>ReactDOM.render组件返回组件实例（无状态的返回null）</p>
+<pre>findDOMNode()
+import { findDOMNode } from 'react-dom';
+// Inside Component class
+componentDidMound() {
+  const el = findDOMNode(this);
+}
+//findDOMNode() 不能用在无状态组件上。</pre>
+
+<h5 id="Refs"><a href="#Refs" class="headerlink" title="Refs"></a>Refs</h5><p>通过引用DOM元素上面设置一个ref属性指定一个名称，然后通过this.refs.name来访问对应的Dom元素</p>
+<p>如果ref设置在原生HTML元素上，拿到的就是DOM元素，如果设置在自定义组件上，拿到就是组件实例，通过findDOMNode来拿到组件的DOM元素。</p>
+<h5 id="小结Ref："><a href="#小结Ref：" class="headerlink" title="小结Ref："></a>小结Ref：</h5><ol>
+<li> 可以使用ref到的组件定义的任何公共方法，比如 this.refs.myTypehead.reset()</li>
+<li> Refs是访问到组件内部DOM节点唯一可靠的方法</li>
+<li> Refs会自动销毁对子组件的引用（当子组件删除时）</li>
+<li> 不要在render或者render之前访问refs</li>
+<li> 不要滥用 refs </li>
+</ol>
+<h5 id="This-props-children"><a href="#This-props-children" class="headerlink" title="This.props.children"></a>This.props.children</h5><p>组件标签里面包含的子元素会通过props.children传递进来<br>一般可以直接将这个属性作为父组件的子元素render</p>
+<pre>Const Parent=(props)=><div>{props.children}</div></pre>
+
+<p>props.children通常是一个组件对象的数组，但是当只有一个元素的时候，props.children将是这个唯一的子元素，而不是数组了。</p>
+<h5 id="组件间通信"><a href="#组件间通信" class="headerlink" title="组件间通信"></a>组件间通信</h5><p>父子组件间通信</p>
+<p>通过props属性传递，在父组件给子组件设置props，然后子组件通过props访问到父组件的数据/方法，搭建了父子组件间通信的桥梁。</p>
+<h5 id="Flux"><a href="#Flux" class="headerlink" title="Flux"></a>Flux</h5><p><strong>React：MVC中V<br>Flux：M和C<br>Flux(四部分)           Action -&gt; Dispatcher -&gt; Store -&gt; View</strong></p>
+<ol>
+<li> The dispatcher 处理动作分发，维护store之间的依赖关系</li>
+<li> The stores 数据和逻辑部分</li>
+<li> The views React组件，这一层可以看做controller-views,作为视图同时响应用户交互</li>
+<li> The actions 提供给dispatcher传递数据给store</li>
+</ol>
+<h5 id="单项数据流"><a href="#单项数据流" class="headerlink" title="单项数据流"></a>单项数据流</h5><p>流程如下：<br>首先要有 action，通过定义一些 action creator 方法根据需要创建 Action 提供给 dispatcher<br>View 层通过用户交互（比如 onClick）会触发 Action<br>Dispatcher 会分发触发的 Action 给所有注册的 Store 的回调函数<br>Store 回调函数根据接收的 Action 更新自身数据之后会触发一个 change 事件通知 View 数据更改了<br>View 会监听这个 change 事件，拿到对应的新数据并调用 setState 更新组件 UI<br>所有的状态都由 Store 来维护，通过 Action 传递数据，构成了如上所述的单向数据流循环。</p>
+<h1 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h1><h2 id="三个基本原则"><a href="#三个基本原则" class="headerlink" title="三个基本原则"></a>三个基本原则</h2><ol>
+<li> 整个应用只有唯一一个可信数据源，也就是只有一个 Store</li>
+<li> State 只能通过触发 Action 来更改</li>
+<li> State 的更改必须写成纯函数，也就是每次更改总是返回一个新的 State，在 Redux 里这种函数称为 Reducer</li>
+</ol>
+<h3 id="Actions"><a href="#Actions" class="headerlink" title="Actions"></a>Actions</h3><p>actions包含{type,payload}的对象，type是一个常量用来标识动作类型，payload是这个动作携带的数据。Action需要通过store.dispatch()方法来发送。</p>
+<p>一般来说，会使用函数（Action Creators）来生成 action，这样会有更大的灵活性，Action Creators 是一个 pure function，它最后会返回一个 action 对象：</p>
+<p>function addTodo(text) {<br>  return {<br>    type: ‘ADD_TODO’,<br>    text<br>  }<br>}<br>所以现在要触发一个动作只要调用 dispatch: dispatch(addTodo(text))</p>
+<h3 id="Reducers"><a href="#Reducers" class="headerlink" title="Reducers"></a>Reducers</h3><p>Reducers用来处理Action触发的对状态树的更改。</p>
+<p>一个reducers函数会接受oldState和action两个参数，返回一个新的state:(oldState,action)=&gt;newState。</p>
+<p>Redux提供一个工具函数combineReducers简化reducer合并</p>
+<p>import { combineReducers } from ‘redux’;</p>
+<p>const someApp = combineReducers({<br>  a: reducerA,<br>  b: reducerB<br>});<br>如果reducer函数名字和字段名字相同，利用es6的destructuring可以简化成 combineReducers({a,b})</p>
+<h3 id="Store"><a href="#Store" class="headerlink" title="Store"></a>Store</h3><p>Store负责连接Action和Reducer。<br>作用：<br>    1. Hold 住整个应用的 State 状态树<br>    2. 提供一个 getState() 方法获取 State<br>    3. 提供一个 dispatch() 方法发送 action 更改 State<br>    4. 提供一个 subscribe() 方法注册回调函数监听 State 的更改</p>
+<p>创建一个 Store 很容易，将 root reducer 函数传递给 createStore 方法即可：</p>
+<p>import { createStore } from ‘redux’;<br>import someApp from ‘./reducers’;<br>let store = createStore(someApp);</p>
+<p>// 你也可以额外指定一个初始 State（initialState），这对于服务端渲染很有用<br>// let store = createStore(someApp, window.STATE_FROM_SERVER);</p>
+<p>拿到了store.dispatch,用来分发action<br>store.dispatch({ type: ‘CHANGE_A’ });<br>store.dispatch({ type: ‘CHANGE_B’, payload: ‘Modified b’ });</p>
+<h3 id="在-React-应用中使用-Redux"><a href="#在-React-应用中使用-Redux" class="headerlink" title="在 React 应用中使用 Redux"></a>在 React 应用中使用 Redux</h3><p>和 Flux 类似，Redux 也是需要注册一个回调函数 store.subscribe(listener) 来获取 State 的更新，然后我们要在 listener 里面调用 setState() 来更新 React 组件。</p>
+<Provider>
+<Provider> 作为一个容器组件，用来接受 Store，并且让 Store 对子组件可用，用法如下：
+
+<p>import { render } from ‘react-dom’;<br>import { Provider } from ‘react-redux’;<br>import App from ‘./app’;</p>
+<p>render(<br>  <Provider store={store}><br>    <App /><br>  </Provider>,<br>  document.getElementById(‘root’)<br>);<br>这时候 <Provider> 里面的子组件 <App /> 才可以使用 connect 方法关联 store。</p>
+<h3 id="Connect"><a href="#Connect" class="headerlink" title="Connect"></a>Connect</h3><p>connect() 这个方法略微复杂一点，主要是因为它的用法非常灵活：connect([mapStateToProps], mapDispatchToProps], [mergeProps], [options])，它最多接受4个参数，都是可选的，并且这个方法调用会返回另一个函数，这个返回的函数来接受一个组件类作为参数，最后才返回一个和 Redux store 关联起来的新组件，类似这样：</p>
+<p>class App extends Component { … }<br>export default connect()(App);<br>这样就可以在 App 这个组件里面通过 props 拿到 Store 的 dispatch 方法，但是注意现在的 App 没有监听 Store 的状态更改，如果要监听 Store 的状态更改，必须要指定 mapStateToProps 参数。</p>
+<p>参数<br>    • [mapStateToProps(state, [ownProps]): stateProps]: </p>
+<pre><code>第一个可选参数是一个函数，只有指定了这个参数，这个关联（connected）组件才会监听 Redux Store 的更新，每次更新都会调用 mapStateToProps 这个函数，返回一个字面量对象将会合并到组件的 props 属性。 ownProps 是可选的第二个参数，它是传递给组件的 props，当组件获取到新的 props 时，ownProps 都会拿到这个值并且执行 mapStateToProps 这个函数。
+
+• [mapDispatchProps(dispatch, [ownProps]): dispatchProps]:
+
+ 这个函数用来指定如何传递 dispatch 给组件，在这个函数里面直接 dispatch action creator，返回一个字面量对象将会合并到组件的 props 属性，这样关联组件可以直接通过 props 调用到 action， Redux 提供了一个 bindActionCreators() 辅助函数来简化这种写法。 如果省略这个参数，默认直接把 dispatch 作为 props 传入。ownProps 作用同上。</code></pre>
+<p>表单</p>
+<p>表单元素有这么几种属于状态的属性：</p>
+<pre><code>· value，对应 &lt;input&gt; 和 &lt;textarea&gt; 所有
+· checked，对应类型为 checkbox 和 radio 的 &lt;input&gt; 所有
+· selected，对应 &lt;option&gt; 所有</code></pre>
+<p>受控组件</p>
+<p>用onchange事件改变状态属性</p>
+<p>非受控组件</p>
+<p>如果你想要给“状态属性”设置默认值，就要用 React 提供的特殊属性 defaultValue，对于 checked 会有 defaultChecked，<option> 也是使用 defaultValue。</p>
+<select>
+
+<p>在 HTML 中 <select> 标签指定选中项都是通过对应 <option> 的 selected 属性来做的，但是在 React 修改成统一使用 value。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h4 id="关于-Store："><a href="#关于-Store：" class="headerlink" title="关于 Store："></a>关于 Store：</h4><ol>
+<li>整个应用只有一个唯一的 Store</li>
+<li> Store 对应的状态树（State），由调用一个 reducer 函数（root reducer）生成</li>
+<li> 状态树上的每个字段都可以进一步由不同的 reducer 函数生成</li>
+<li> Store 包含了几个方法比如 dispatch, getState 来处理数据流</li>
+<li> Store 的状态树只能由 dispatch(action) 来触发更改</li>
+</ol>
+<h4 id="Redux-的数据流："><a href="#Redux-的数据流：" class="headerlink" title="Redux 的数据流："></a>Redux 的数据流：</h4><ol>
+<li>action 是一个包含 { type, payload } 的对象</li>
+<li> reducer 函数通过 store.dispatch(action) 触发</li>
+<li> reducer 函数接受 (state, action) 两个参数，返回一个新的 state</li>
+<li>reducer 函数判断 action.type 然后处理对应的 action.payload 数据来更新状态树</li>
+<li> 所以对于整个应用来说，一个 Store 就对应一个 UI 快照，服务器端渲染就简化成了在服务器端初始化 Store，将 Store 传入应用的根组件，针对根组件调用 renderToString 就将整个应用输出成包含了初始化数据的 HTML。 </li>
+</ol>
+<h4 id="React-router"><a href="#React-router" class="headerlink" title="React-router"></a>React-router</h4><p>react-router 通过一种声明式的方式匹配不同路由决定在页面上展示不同的组件，并且通过 props 将路由信息传递给组件使用，所以只要路由变更，props 就会变化，触发组件 re-render。</p>
+<h4 id="Reducer"><a href="#Reducer" class="headerlink" title="Reducer"></a>Reducer</h4><p>Store 是由 reducer 产生的，所以 reducer 实际上反映了 Store 的状态树结构。</p>
+<p>./reducers/index.js</p>
+<pre>import listReducer from './list';
+import itemReducer from './item';
+
+export default function rootReducer(state = {}, action) {
+  return {
+    list: listReducer(state.list, action),
+    item: itemReducer(state.item, action)
+  };
+  }</pre>
+<p>rootReducer 的 state 参数就是整个 Store 的状态树，状态树下的每个字段对应也可以有自己的 reducer，所以这里引入了 listReducer 和 itemReducer，可以看到这两个 reducer 的 state 参数就只是整个状态树上对应的 list 和 item 字段。</p>
+<p>具体到 ./reducers/list.js</p>
+<pre>const initialState = [];
+
+export default function listReducer(state = initialState, action) {
+  switch(action.type) {
+  case 'FETCH_LIST_SUCCESS': return [...action.payload];
+  default: return state;
+  }
+  }</pre>
+<p>list 就是一个包含 items 的简单数组，可能类似这种结构：[{ id: 0, name: ‘first item’}, {id: 1, name: ‘second item’}]，从 ‘FETCH_LIST_SUCCESS’ 的 action.payload 获得。</p>
+<p>然后是 ./reducers/item.js，处理获取到的 item 数据</p>
+<pre>const initialState = {};
+
+export default function listReducer(state = initialState, action) {
+  switch(action.type) {
+  case 'FETCH_ITEM_SUCCESS': return [...action.payload];
+  default: return state;
+  }
+  }</pre>
+
+
+<h4 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h4><p>对应的应该要有两个 action 来获取 list 和 item，触发 reducer 更改 Store，这里我们定义 fetchList 和 fetchItem 两个 action。</p>
+<p>./actions/index.js</p>
+<pre>import fetch from 'isomorphic-fetch';
+
+export function fetchList() {
+  return (dispatch) => {
+    return fetch('/api/list')
+        .then(res => res.json())
+        .then(json => dispatch({ type: 'FETCH_LIST_SUCCESS', payload: json }));
+  }
+}
+
+export function fetchItem(id) {
+  return (dispatch) => {
+    if (!id) return Promise.resolve();
+    return fetch(`/api/item/${id}`)
+        .then(res => res.json())
+        .then(json => dispatch({ type: 'FETCH_ITEM_SUCCESS', payload: json }));
+  }
+  }</pre>
+<p>isomorphic-fetch 是一个前后端通用的 Ajax 实现，前后端要共享代码这点很重要。</p>
+<p>另外因为涉及到异步请求，这里的 action 用到了 thunk，也就是函数，redux 通过 thunk-middleware 来处理这类 action，把函数当作普通的 action dispatch 就好了，比如 dispatch(fetchList())</p>
+<h4 id="Store-1"><a href="#Store-1" class="headerlink" title="Store"></a>Store</h4><p>我们用一个独立的 ./store.js，配置（比如 Apply Middleware）生成 Store</p>
+<pre>import { createStore } from 'redux';
+import rootReducer from './reducers';
+
+// Apply middleware here
+// ...
+
+export default function configureStore(initialState) {
+  const store = createStore(rootReducer, initialState);
+  return store;
+  }</pre>
+
+
+
+<h4 id="react-redux"><a href="#react-redux" class="headerlink" title="react-redux"></a>react-redux</h4><p>实现 List ，Item 组件，然后把 Redux 和 React 组件关联起来<br>./app.js</p>
+<pre>
+import React from 'react';
+import { render } from 'react-dom';
+import { Router } from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
+import { Provider } from 'react-redux';
+import routes from './routes';
+import configureStore from './store';
+
+// __INITIAL_STATE__来自服务器端渲染
+</pre>
+<code>
+const initialState = window.__INITIAL_STATE__;
+const store = configureStore(initialState);
+const Root = (props) => &#123;
+  return (
+ <pre>     <Provider store=&#123;store&#125;></pre>
+   <pre>     <Router history=&#123;createBrowserHistory()&#125;></pre>
+   <pre>       &#123;routes&#125;</pre>
+   <pre>     </Router></pre>
+   <pre>   </Provider></pre>
+  );
+&#125;
+
+<p>render(<Root />, document.getElementById(‘root’));</code></p>
+<h5 id="到此-客户端部分结束"><a href="#到此-客户端部分结束" class="headerlink" title="到此 客户端部分结束"></a>到此 客户端部分结束</h5><h4 id="Server-Rendering"><a href="#Server-Rendering" class="headerlink" title="Server Rendering"></a>Server Rendering</h4><p>获取数据调用action,routes在服务端处理参考 react-router server rendering ，在服务器端用一个match方法将拿到的request url 匹配到我们之前定义的routes，解析成和客户端一致的props对象传递给组件。</p>
+<p>服务器端渲染部分可以直接通过共用客户端 store.dispatch(action) 来统一获取 Store 数据。另外注意 renderFullPage 生成的页面 HTML 在 React 组件 mount 的部分(<div id="root">)，前后端的 HTML 结构应该是一致的。然后要把 store 的状态树写入一个全局变量（__INITIAL_STATE__），这样客户端初始化 render 的时候能够校验服务器生成的 HTML 结构，并且同步到初始化状态，然后整个页面被客户端接管。</p>
+<p>页面内链接跳转处理<br>react-router 提供了一个 <Link> 组件用来替代 <a> 标签，它负责管理浏览器 history，从而不是每次点击链接都去请求服务器，然后可以通过绑定 onClick 事件来作其他处理。</p>
+<p>比如在 /list 页面，对于每一个 item 都会用 <Link> 绑定一个 route url：/item/:id，并且绑定 onClick 去触发 dispatch(fetchItem(id)) 获取数据，显示详情页内容。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/06/%E6%B5%A3%E8%B7%A8%E6%95%A4hexo+github%E9%8E%BC%EE%85%9E%E7%BC%93%E6%B6%93%EE%81%83%E6%B1%89%E9%8D%97%E6%B0%AC%EE%85%B9/" rel="prev" title="使用hexo+github搭建个人博客">
+      <i class="fa fa-chevron-left"></i> 使用hexo+github搭建个人博客
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.</span> <span class="nav-text">组件生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">生命周期函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A3%85%E8%BD%BD%E7%BB%84%E4%BB%B6%E8%A7%A6%E5%8F%91"><span class="nav-number">2.1.</span> <span class="nav-text">装载组件触发</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E7%BB%84%E4%BB%B6%E8%A7%A6%E5%8F%91"><span class="nav-number">2.2.</span> <span class="nav-text">更新组件触发</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BD%E7%BB%84%E4%BB%B6%E8%A7%A6%E5%8F%91"><span class="nav-number">2.3.</span> <span class="nav-text">卸载组件触发</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">事件处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E4%BA%8B%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">绑定事件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%88%E6%88%90%E4%BA%8B%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">合成事件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%9F%E7%94%9F%E4%BA%8B%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">原生事件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="nav-number">3.4.</span> <span class="nav-text">参数传递</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DOM%E6%93%8D%E4%BD%9C"><span class="nav-number">3.5.</span> <span class="nav-text">DOM操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Refs"><span class="nav-number">3.6.</span> <span class="nav-text">Refs</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93Ref%EF%BC%9A"><span class="nav-number">3.7.</span> <span class="nav-text">小结Ref：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#This-props-children"><span class="nav-number">3.8.</span> <span class="nav-text">This.props.children</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">3.9.</span> <span class="nav-text">组件间通信</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Flux"><span class="nav-number">3.10.</span> <span class="nav-text">Flux</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E9%A1%B9%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">3.11.</span> <span class="nav-text">单项数据流</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redux"><span class="nav-number"></span> <span class="nav-text">Redux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E4%B8%AA%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99"><span class="nav-number"></span> <span class="nav-text">三个基本原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Actions"><span class="nav-number"></span> <span class="nav-text">Actions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reducers"><span class="nav-number"></span> <span class="nav-text">Reducers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Store"><span class="nav-number"></span> <span class="nav-text">Store</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-React-%E5%BA%94%E7%94%A8%E4%B8%AD%E4%BD%BF%E7%94%A8-Redux"><span class="nav-number"></span> <span class="nav-text">在 React 应用中使用 Redux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Connect"><span class="nav-number"></span> <span class="nav-text">Connect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-Store%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">关于 Store：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redux-%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">Redux 的数据流：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#React-router"><span class="nav-number">3.</span> <span class="nav-text">React-router</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reducer"><span class="nav-number">4.</span> <span class="nav-text">Reducer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Action"><span class="nav-number">5.</span> <span class="nav-text">Action</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Store-1"><span class="nav-number">6.</span> <span class="nav-text">Store</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#react-redux"><span class="nav-number">7.</span> <span class="nav-text">react-redux</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%B0%E6%AD%A4-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E5%88%86%E7%BB%93%E6%9D%9F"><span class="nav-number">7.1.</span> <span class="nav-text">到此 客户端部分结束</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Server-Rendering"><span class="nav-number">8.</span> <span class="nav-text">Server Rendering</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
